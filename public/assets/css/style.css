@@ -43,15 +43,14 @@ form {
     border-bottom: 1px dashed #ccc;
 }
 /* BACKGROUND FULL GAME */
-.game-bg, .pos-bg {
-    width: 100%;
-    min-height: 100vh; /* Gunakan min-height agar menutupi seluruh layar */
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; /* Cover lebih baik daripada 100% 100% */
-    background-attachment: fixed;
-    /* Tambahkan warna yang dominan dengan gambar agar saat loading tidak putih polos */
-    background-color: #26a2d7; 
+.game-bg,
+.pos-bg{
+    width:100%;
+    height:100%;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-size:100% 100%;
+    background-attachment:fixed;
 }
 
 .game-bg{
