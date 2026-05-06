@@ -1,5 +1,5 @@
 /* =========================================
-   1. DASAR & RESET
+   1. DASAR, RESET & SCROLLBAR
    ========================================= */
 html, body {
     width: 100%;
@@ -7,11 +7,17 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: 'Courier New', monospace;
-    overflow-x: hidden; /* Mencegah geser kanan-kiri di HP */
+    overflow-x: hidden; /* Mencegah geser kanan-kiri yang bikin berantakan */
+    scroll-behavior: smooth;
+}
+
+/* Mengatur box-sizing untuk semua elemen agar padding tidak merusak lebar */
+* {
+    box-sizing: border-box;
 }
 
 /* =========================================
-   2. BACKGROUND (Optimasi Delay)
+   2. BACKGROUND HANDLER (Anti-Delay)
    ========================================= */
 .game-bg, .pos-bg {
     width: 100%;
@@ -20,129 +26,203 @@ html, body {
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    background-color: #26a2d7; 
+    background-color: #26a2d7; /* Warna cadangan saat loading */
 }
 
 .game-bg { background-image: url('../images/bg-home.png'); }
 .pos-bg { background-image: url('../images/bg-home.png'); }
 
 /* =========================================
-   3. KOTAK UTAMA (RESPONSIVE)
+   3. BOARD & CONTAINER (Responsive)
    ========================================= */
-.board-home, .map-box, .finish-box, .question-box, .percakapan-box, .opsi-box {
-    width: 90%;            /* Lebar otomatis 90% di layar kecil */
-    max-width: 700px;      /* Batas maksimal di layar besar */
+.board-home, .map-box, .finish-box, .question-box, .percakapan-box, .kata-box {
+    width: 90%;
+    max-width: 700px; /* Batas lebar di laptop */
     margin: 20px auto;
-    box-sizing: border-box; /* Agar padding tidak merusak lebar */
-}
-
-.board-home {
     background: rgba(34, 139, 34, 0.92);
     border: 6px solid #1f4f1f;
     color: white;
     text-align: center;
-    padding: 30px 15px;
+    padding: 30px;
     box-shadow: 8px 8px 0px black;
+    position: relative;
 }
 
-.board-home h1 {
-    font-size: clamp(20px, 6vw, 40px); /* Ukuran font fleksibel */
-    text-shadow: 2px 2px black;
-}
+.board-home h1 { font-size: clamp(22px, 5vw, 42px); text-shadow: 3px 3px black; }
+.board-home h2 { font-size: clamp(16px, 3vw, 24px); }
 
 /* =========================================
-   4. PERCAKAPAN & SOAL (Mobile Friendly)
+   4. PERCAKAPAN & SOAL (Khas Retro)
    ========================================= */
 .percakapan-box {
     background: white;
-    padding: 20px;
-    border: 4px solid black;
-    box-shadow: 5px 5px 0px black;
-    font-size: 14px;
-    line-height: 1.5;
+    color: black;
+    border: 5px solid black;
+    box-shadow: 6px 6px 0px black;
+    text-align: left;
+    font-size: 16px;
+    line-height: 1.4;
     white-space: pre-line;
+}
+
+.question-box {
+    background: #27ae60;
+    border: 5px solid black;
+    box-shadow: 6px 6px 0px black;
+}
+
+.opsi-box {
+    width: 90%;
+    max-width: 700px;
+    margin: 10px auto;
 }
 
 .opsi-box label {
     display: block;
     background: white;
-    padding: 12px;
-    margin: 8px 0;
-    border: 3px solid black;
-    box-shadow: 3px 3px 0px black;
-    font-size: 15px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 4px solid black;
+    box-shadow: 4px 4px 0px black;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: black;
+}
+
+.opsi-box label:hover { background: #f1f2f6; transform: scale(1.01); }
+
+/* =========================================
+   5. POPUP PILIH MATERI (Fix Melebar)
+   ========================================= */
+.popup-hidden {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 999;
+}
+
+.popup-box {
+    width: 85%;
+    max-width: 450px;
+    margin: 100px auto;
+    background: #228b22;
+    padding: 30px;
+    border: 8px solid #145214;
+    box-shadow: 8px 8px 0px black;
+    text-align: center;
+}
+
+.materi-btn {
+    display: block;
+    background: #ebbb1b;
+    color: black;
+    text-decoration: none;
+    margin: 15px auto;
+    padding: 15px;
+    width: 90%;
+    border: 4px solid black;
+    box-shadow: 4px 4px 0px black;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
 /* =========================================
-   5. TABEL POS (Ganti Grid di HP)
+   6. HALAMAN MAP & TABEL POS (Fix Grid)
    ========================================= */
+.map-box { background: #26a2d7; border: 6px solid black; }
+
 .table-pos {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 Kolom di Desktop */
-    gap: 15px;
-    padding: 15px;
+    width: 100%;
+    margin-top: 20px;
     background: #3eaede;
     border: 4px solid black;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Kolom laptop */
+    gap: 20px;
 }
 
 .pos-btn {
-    width: 100%;
-    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 70px;
     background: #00b050;
     color: white;
     text-decoration: none;
     border: 4px solid black;
-    box-shadow: 4px 4px 0px black;
+    box-shadow: 5px 5px 0px black;
     font-weight: bold;
-    font-size: 16px;
+    transition: 0.1s;
 }
 
+.pos-btn:active { transform: translate(4px, 4px); box-shadow: 0px 0px 0px black; }
+
+.done-grey { background: #7f8c8d !important; cursor: default; pointer-events: none; }
+
 /* =========================================
-   6. TOMBOL UMUM
+   7. TOMBOL & ANIMASI
    ========================================= */
 .btn {
     display: inline-block;
-    padding: 15px 25px;
-    margin: 8px;
-    font-size: 18px;
-    border: 5px solid black;
-    box-shadow: 4px 4px 0px black;
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 20px;
+    border: 6px solid black;
+    box-shadow: 5px 5px 0px black;
     color: white;
     text-decoration: none;
-    cursor: pointer;
+    transition: 0.1s;
 }
+
+.btn:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px black; }
 
 .green { background: #00b050; }
 .red { background: #c0392b; }
 
+.mario-run {
+    width: 70px;
+    height: 70px;
+    background: url('../images/mario.gif');
+    background-size: cover;
+    position: fixed;
+    bottom: 10px;
+    animation: jalan 12s linear infinite;
+    pointer-events: none;
+    z-index: 100;
+}
+
+@keyframes jalan { from { left: -100px; } to { left: 110%; } }
+
 /* =========================================
-   7. KHUSUS TAMPILAN HANDPHONE (Media Query)
+   8. MEDIA QUERY (Penyelamat Tampilan HP)
    ========================================= */
 @media screen and (max-width: 600px) {
-    /* Board utama lebih rapat */
-    .board-home {
-        margin: 40px auto;
-        padding: 20px 10px;
-    }
-
-    /* Tabel POS jadi 1 kolom memanjang kebawah */
+    /* Mencegah Melebar: Paksa 1 kolom */
     .table-pos {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr !important;
+        padding: 10px;
     }
 
-    /* Tombol jadi lebar penuh agar mudah diklik jempol */
-    .btn {
+    .board-home, .map-box, .popup-box, .question-box {
+        width: 95%;
+        padding: 20px 10px;
+        margin: 15px auto;
+    }
+
+    /* Tombol Lebar Penuh agar mudah ditekan */
+    .btn, .materi-btn {
         width: 85%;
         display: block;
         margin: 10px auto;
     }
 
-    /* Ukuran Mario diperkecil agar tidak menutupi soal */
-    .mario-run {
-        width: 50px;
-        height: 50px;
-    }
+    .pos-btn { height: 60px; font-size: 18px; }
+
+    .board-home h1 { font-size: 24px !important; }
 }
