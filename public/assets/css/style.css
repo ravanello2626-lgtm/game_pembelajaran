@@ -1,458 +1,148 @@
-/* Update bagian body saja */
+/* =========================================
+   1. DASAR & RESET
+   ========================================= */
 html, body {
     width: 100%;
     min-height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Courier New', monospace;
-    overflow-y: auto; /* Aktifkan scroll */
+    overflow-x: hidden; /* Mencegah geser kanan-kiri di HP */
 }
 
-.pos-bg {
-    background-image: url('../images/bg-home.png'); 
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-color: #4285c9; /* Warna cadangan */
-    min-height: 100vh;
-}
-/* Tambahkan ini agar kontainer soal tidak menempel ke bawah */
-form {
-    padding-bottom: 50px;
-}
-
-.percakapan-box {
-    background: white;
-    width: 80%;            /* Mengecilkan lebar sedikit agar tidak memenuhi layar */
-    margin: 10px auto;
-    padding: 20px 50px;    /* Padding kiri-kanan lebih besar agar teks menjorok ke dalam */
-    border: 5px solid black;
-    box-shadow: 6px 6px black;
-    text-align: left;
-    font-size: 16px;
-    
-    /* Mengatur kerapatan baris teks */
-    line-height: 1.4;      
-    
-    /* PENTING: Agar simbol \n dari database berfungsi sebagai baris baru */
-    white-space: pre-line; 
-}
-
-.chat-line {
-    padding: 5px 0;
-    border-bottom: 1px dashed #ccc;
-}
-/* BACKGROUND FULL GAME */
+/* =========================================
+   2. BACKGROUND (Optimasi Delay)
+   ========================================= */
 .game-bg, .pos-bg {
     width: 100%;
-    min-height: 100vh; /* Gunakan min-height agar menutupi seluruh layar */
+    min-height: 100vh;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover; /* Cover lebih baik daripada 100% 100% */
+    background-size: cover;
     background-attachment: fixed;
-    /* Tambahkan warna yang dominan dengan gambar agar saat loading tidak putih polos */
     background-color: #26a2d7; 
 }
 
-.game-bg{
-    background-image:url('../images/bg-home.png');
-}
+.game-bg { background-image: url('../images/bg-home.png'); }
+.pos-bg { background-image: url('../images/bg-home.png'); }
 
-
-.main-container {
-    padding: 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.question-box {
-    width: 85%;
-    max-width: 800px;
+/* =========================================
+   3. KOTAK UTAMA (RESPONSIVE)
+   ========================================= */
+.board-home, .map-box, .finish-box, .question-box, .percakapan-box, .opsi-box {
+    width: 90%;            /* Lebar otomatis 90% di layar kecil */
+    max-width: 700px;      /* Batas maksimal di layar besar */
     margin: 20px auto;
-    background: rgba(7, 175, 161, 0.9); /* Transparan sedikit agar estetik */
+    box-sizing: border-box; /* Agar padding tidak merusak lebar */
+}
+
+.board-home {
+    background: rgba(34, 139, 34, 0.92);
+    border: 6px solid #1f4f1f;
     color: white;
-    padding: 25px;
-    border: 6px solid black;
-    box-shadow: 8px 8px 0px black;
-    font-size: 20px;
     text-align: center;
+    padding: 30px 15px;
+    box-shadow: 8px 8px 0px black;
 }
 
-/* TOP BAR */
-.top-bar{
-    padding:20px 40px;
-    display:flex;
-    align-items:center;
-    gap:20px;
-    color:white;
-    font-size:25px;
+.board-home h1 {
+    font-size: clamp(20px, 6vw, 40px); /* Ukuran font fleksibel */
+    text-shadow: 2px 2px black;
 }
 
-.health{
-    width:250px;
-    height:20px;
-    background:red;
-    border:4px solid black;
-    box-shadow:4px 4px black;
+/* =========================================
+   4. PERCAKAPAN & SOAL (Mobile Friendly)
+   ========================================= */
+.percakapan-box {
+    background: white;
+    padding: 20px;
+    border: 4px solid black;
+    box-shadow: 5px 5px 0px black;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-line;
 }
 
-/* HOME BOARD */
-.board-home{
-    width:700px;
-    margin:95px auto;
-    background:rgba(34,139,34,0.92);
-    border:8px solid #1f4f1f;
-    color:white;
-    text-align:center;
-    padding:50px;
-    box-shadow:10px 10px black;
+.opsi-box label {
+    display: block;
+    background: white;
+    padding: 12px;
+    margin: 8px 0;
+    border: 3px solid black;
+    box-shadow: 3px 3px 0px black;
+    font-size: 15px;
 }
 
-.board-home h1{
-    font-size:42px;
-    text-shadow:3px 3px black;
-    margin:10px;
-}
-
-.board-home h2{
-    font-size:26px;
-    margin:15px;
-}
-
-/* LABEL MATERI */
-.materi-label{
-    margin-top:15px;
-    background:#ebbb1b;
-    color:black;
-    display:inline-block;
-    padding:12px 25px;
-    border:4px solid black;
-    box-shadow:4px 4px black;
-    font-size:18px;
-    font-weight:bold;
-}
-
-/* BUTTON */
-.menu-btn{
-    text-align:center;
-    margin-top:30px;
-}
-
-.btn{
-    display:inline-block;
-    text-decoration:none;
-    padding:18px 40px;
-    margin:5px;
-    font-size:22px;
-    border:7px solid black;
-    box-shadow:5px 5px black;
-    color:white;
-    transition:0.3s;
-    cursor:pointer;
-}
-
-.btn:hover{
-    transform:scale(1.08);
-}
-
-.green{background:#00b050;}
-.yellow{background:#f1c40f;color:black;}
-.red{background:#c0392b;}
-
-.small{
-    padding:8px 20px;
-    font-size:15px;
-}
-
-/* POPUP */
-.popup-hidden{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-}
-
-.popup-box{
-    width:450px;
-    margin:120px auto;
-    text-align:center;
-    background:rgba(34,139,34,0.92);
-    padding:30px;
-    border:8px solid #145214;
-    box-shadow:8px 8px black;
-    color:white;
-}
-
-.materi-btn{
-    display:block;
-    background:#ebbb1b;
-    color:white;
-    text-decoration:none;
-    margin:20px auto;
-    padding:18px;
-    width:75%;
-    border:5px solid black;
-    box-shadow:5px 5px black;
-    font-size:22px;
-    transition:0.3s;
-    animation:goyang 1.5s infinite alternate;
-}
-
-.materi-btn:hover{
-    transform:scale(1.08);
-    background:#e2ad00;
-}
-
-/* MAP */
-.map-box{   
-    width:650px;
-    margin:15px auto;
-    background:#26a2d7;
-    padding:25px;
-    text-align:center;
-    border:5px solid black;
-    box-shadow:8px 8px black;
-}
-
-.map-box h1{
-    margin-bottom:25px;
-    font-size:30px;
-}
-
-.table-pos{
-    width:90%;
-    margin:20px auto 30px auto;
-    background:#3eaede;
-    border:5px solid black;
-    padding:30px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:25px;
-    justify-items:center;
+/* =========================================
+   5. TABEL POS (Ganti Grid di HP)
+   ========================================= */
+.table-pos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Kolom di Desktop */
+    gap: 15px;
+    padding: 15px;
+    background: #3eaede;
+    border: 4px solid black;
 }
 
 .pos-btn {
+    width: 100%;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 220px;
-    height: 75px;
-    text-decoration: none;
-    background: #00b050; /* Hijau Standar */
+    background: #00b050;
     color: white;
-    font-size: 22px;
+    text-decoration: none;
+    border: 4px solid black;
+    box-shadow: 4px 4px 0px black;
     font-weight: bold;
+    font-size: 16px;
+}
+
+/* =========================================
+   6. TOMBOL UMUM
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 15px 25px;
+    margin: 8px;
+    font-size: 18px;
     border: 5px solid black;
-    box-shadow: 6px 6px 0px black; /* Shadow lebih tegas khas gaya retro */
-    transition: all 0.2s ease;
+    box-shadow: 4px 4px 0px black;
+    color: white;
+    text-decoration: none;
     cursor: pointer;
 }
 
-/* Efek saat tombol ditekan atau dihover */
-.pos-btn:hover {
-    transform: translate(-2px, -2px); /* Bergerak sedikit ke atas */
-    box-shadow: 8px 8px 0px black;
-    filter: brightness(1.1);
-}
+.green { background: #00b050; }
+.red { background: #c0392b; }
 
-.pos-btn:active {
-    transform: translate(4px, 4px); /* Efek memencet tombol */
-    box-shadow: 0px 0px 0px black;
-}
+/* =========================================
+   7. KHUSUS TAMPILAN HANDPHONE (Media Query)
+   ========================================= */
+@media screen and (max-width: 600px) {
+    /* Board utama lebih rapat */
+    .board-home {
+        margin: 40px auto;
+        padding: 20px 10px;
+    }
 
-/* Class Baru: Jika POS sudah dikerjakan (Abu-abu) */
-.done-grey {
-    background: #7f8c8d !important; /* Warna Abu-abu */
-    box-shadow: 3px 3px 0px black !important;
-    transform: none !important;
-    cursor: pointer; /* Tetap bisa diklik karena tidak dikunci */
-}
+    /* Tabel POS jadi 1 kolom memanjang kebawah */
+    .table-pos {
+        grid-template-columns: 1fr; 
+    }
 
-.table-pos a:nth-child(5){
-    grid-column:1/3;
-}
-
-.done{
-    background:#27ae60 !important;
-}
-
-/* POS PAGE */
-.top-pos{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:40px 50px;
-    color:white;
-}
-
-.top-pos h1{
-    font-size:32px;
-    text-shadow:3px 3px black;
-}
-
-.question-box{
-    width:75%;
-    margin:10px auto;
-    background:#27ae60;
-    color:white;
-    padding:15px;
-    border:6px solid black;
-    box-shadow:6px 6px black;
-    font-size:22px;
-    text-align:center;
-}
-
-.question-box small{
-    display:block;
-    margin-top:8px;
-    font-size:13px;
-}
-
-.opsi-box{
-    width:75%;
-    margin:10px auto 20px auto;
-}
-
-.opsi-box label{
-    display:block;
-    background:white;
-    padding:14px;
-    margin:10px 0;
-    border:4px solid black;
-    box-shadow:4px 4px black;
-    font-size:18px;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.opsi-box label:hover{
-    background:#f1f2f6;
-    transform:scale(1.02);
-}
-
-.opsi-box input{
-    transform:scale(1.3);
-    margin-right:10px;
-}
-
-.kata-box {
-    width: 45%;            /* Mengecilkan lebar tabel menjadi 60% dari layar */
-    margin: 5px auto;     /* Mengatur posisi di tengah dan memberi jarak atas-bawah */
-    padding: 15px;         /* Mengurangi ruang kosong di dalam tabel */
-    background: white;
-    border: 5px solid black;
-    box-shadow: 5px 5px black;
-    text-align: center;
-}
-
-.kata-box h3 {
-    font-size: 20px;       /* Mengecilkan ukuran judul "Kata kunci" */
-    margin-bottom: 10px;
-}
-
-.kata-box p {
-    font-size: 18px;       /* Ukuran teks kata kunci */
-    font-weight: bold;
-    color: #c0392b;
-}
-
-.submit-area{
-    text-align:center;
-    margin-bottom:20px;
-}
-
-/* FINISH */
-.finish-box{
-    width:500px;
-    margin:100px auto;
-    background:#00b050;
-    color:white;
-    text-align:center;
-    padding:30px;
-    border:8px solid black;
-    box-shadow:8px 8px black;
-}
-
-.finish-box h1{font-size:35px;}
-.finish-box h2{font-size:23px;}
-.finish-box h3{color:yellow;}
-
-/* MARIO */
-.mario-run{
-    width:90px;
-    height:90px;
-    background:url('../images/mario.gif');
-    background-size:cover;
-    position:absolute;
-    bottom:20px;
-    left:0;
-    animation:jalan 12s linear infinite;
-}
-
-/* Anda bisa menghapus bagian ini agar tidak ada tombol yang terlihat terkunci */
-.locked {
-    background: #7f8c8d !important;
-    cursor: not-allowed;
-    pointer-events: none; /* Ini yang membuat tombol tidak bisa diklik */
-}
-
-@keyframes jalan{
-    from{left:0;}
-    to{left:90%;}
-}
-
-@keyframes goyang{
-    from{transform:translateY(0);}
-    to{transform:translateY(-5px);}
-}
-/* Pengaturan khusus Layar HP (Responsive) */
-@media screen and (max-width: 768px) {
-    
-    /* 1. Sesuaikan lebar kotak utama agar tidak meluber */
-    .board-home, .map-box, .finish-box, .question-box, .percakapan-box, .opsi-box {
-        width: 80% !important; /* Gunakan hampir seluruh lebar layar */
-        max-width: none;
-        padding: 15px;
+    /* Tombol jadi lebar penuh agar mudah diklik jempol */
+    .btn {
+        width: 85%;
+        display: block;
         margin: 10px auto;
     }
 
-    /* 2. Kecilkan ukuran font agar muat di layar kecil */
-    .board-home h1, .finish-box h1 {
-        font-size: 18px !important;
-    }
-
-    .question-box, .opsi-box label {
-        font-size: 14px !important;
-    }
-
-    /* 3. Atur tombol agar lebih mudah ditekan jari */
-    .btn {
-        width: 80%; /* Tombol jadi lebar penuh agar mudah diklik */
-        padding: 15px;
-        font-size: 18px;
-        box-sizing: border-box;
-    }
-
-    /* 4. Sesuaikan Tabel POS di halaman Map */
-    .table-pos {
-        grid-template-columns: 1fr !important; /* Ubah dari 2 kolom jadi 1 kolom saja */
-        gap: 15px;
-        padding: 10px;
-    }
-
-    .pos-btn {
-        width: 100% !important;
-        height: 60px;
-    }
-
-    /* 5. Sembunyikan atau kecilkan animasi Mario jika menghalangi */
+    /* Ukuran Mario diperkecil agar tidak menutupi soal */
     .mario-run {
-        width: 60px;
-        height: 60px;
-        bottom: 10px;
+        width: 50px;
+        height: 50px;
     }
 }
