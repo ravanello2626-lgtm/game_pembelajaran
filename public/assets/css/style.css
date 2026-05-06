@@ -43,14 +43,15 @@ form {
     border-bottom: 1px dashed #ccc;
 }
 /* BACKGROUND FULL GAME */
-.game-bg,
-.pos-bg{
-    width:100%;
-    height:100%;
-    background-repeat:no-repeat;
-    background-position:center center;
-    background-size:100% 100%;
-    background-attachment:fixed;
+.game-bg, .pos-bg {
+    width: 100%;
+    min-height: 100vh; /* Gunakan min-height agar menutupi seluruh layar */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; /* Cover lebih baik daripada 100% 100% */
+    background-attachment: fixed;
+    /* Tambahkan warna yang dominan dengan gambar agar saat loading tidak putih polos */
+    background-color: #26a2d7; 
 }
 
 .game-bg{
@@ -410,48 +411,18 @@ form {
 }
 /* Pengaturan khusus Layar HP (Responsive) */
 @media screen and (max-width: 768px) {
+    .board-home {
+        width: 90% !important; /* Beri ruang sedikit lebih lebar di HP */
+        margin: 50px auto; /* Kurangi margin atas agar tidak terlalu turun */
+    }
     
-    /* 1. Sesuaikan lebar kotak utama agar tidak meluber */
-    .board-home, .map-box, .finish-box, .question-box, .percakapan-box, .opsi-box {
-        width: 80% !important; /* Gunakan hampir seluruh lebar layar */
-        max-width: none;
-        padding: 15px;
-        margin: 10px auto;
+    .board-home h1 {
+        font-size: 24px !important; /* Sedikit lebih besar dari 18px agar tetap gagah */
     }
 
-    /* 2. Kecilkan ukuran font agar muat di layar kecil */
-    .board-home h1, .finish-box h1 {
-        font-size: 18px !important;
-    }
-
-    .question-box, .opsi-box label {
-        font-size: 14px !important;
-    }
-
-    /* 3. Atur tombol agar lebih mudah ditekan jari */
-    .btn {
-        width: 80%; /* Tombol jadi lebar penuh agar mudah diklik */
-        padding: 15px;
-        font-size: 18px;
-        box-sizing: border-box;
-    }
-
-    /* 4. Sesuaikan Tabel POS di halaman Map */
-    .table-pos {
-        grid-template-columns: 1fr !important; /* Ubah dari 2 kolom jadi 1 kolom saja */
-        gap: 15px;
-        padding: 10px;
-    }
-
-    .pos-btn {
-        width: 100% !important;
-        height: 60px;
-    }
-
-    /* 5. Sembunyikan atau kecilkan animasi Mario jika menghalangi */
-    .mario-run {
-        width: 60px;
-        height: 60px;
-        bottom: 10px;
+    /* Agar box percakapan tidak terlalu sempit di HP */
+    .percakapan-box {
+        width: 95% !important;
+        padding: 15px 20px !important;
     }
 }
