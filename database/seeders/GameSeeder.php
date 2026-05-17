@@ -20,6 +20,7 @@ class GameSeeder extends Seeder
         DB::table('materis')->insert(['id' => 1, 'nama_materi' => 'Teks Negosiasi']);
         DB::table('materis')->insert(['id' => 2, 'nama_materi' => 'Teks Debat']);
         DB::table('materis')->insert(['id' => 3, 'nama_materi' => 'Teks Hikayat']);
+
         // Isi POS
         DB::table('pos')->insert([
             ['id' => 1, 'materi_id' => 1, 'nama_pos' => 'POS 1'],
@@ -38,49 +39,67 @@ class GameSeeder extends Seeder
                          "Penjual : \"Sama-sama. Silahkan dibayar di kasir.\"";
 
         DB::table('questions')->insert([
+
             // SOAL POS 1
             [
                 'pos_id' => 1,
-                'soal' => "Seorang pembeli menawar harga sepeda kepada penjual. Awalnya harga yang ditawarkan terlalu tinggi, tetapi setelah berdiskusi keduanya sepakat pada harga yang sama-sama disetujui.\n\nTujuan kegiatan tersebut adalah ....",
-                'opsi_a' => 'Mengatasi perbedaan kepentingan antara dua pihak',
-                'opsi_b' => 'Memperoleh sesuatu dari pihak lain tanpa paksaan',
-                'opsi_c' => 'Mencapai kesepakatan bersama',
-                'opsi_d' => 'Menyelesaikan perselisihan pendapat',
-                'opsi_e' => 'Menunjukkan kekuatan argumen dalam debat',
-                'jawaban_benar' => 'A,B,C,D' // Sesuai permintaan sebelumnya: banyak jawaban benar
+                'soal' => "Buatlah poster bertema tujuan teks negosiasi menggunakan aplikasi Canva. Poster dibuat secara kreatif dengan memadukan gambar, warna, dan kalimat singkat yang menarik serta mudah dipahami. Gunakan bahasa yang komunikatif dan sesuai dengan materi teks negosiasi.",
+                'opsi_a' => '',
+                'opsi_b' => '',
+                'opsi_c' => '',
+                'opsi_d' => '',
+                'opsi_e' => '',
+                'jawaban_benar' => 'URAIAN'
             ],
+
             // SOAL POS 2
             [
                 'pos_id' => 2,
-                'soal' => "Seorang siswa diminta menulis teks negosiasi tentang tawar-menawar harga buku di toko.\n\nLangkah yang dapat dilakukan siswa tersebut adalah ....",
-                'opsi_a' => 'Menentukan ide pokok cerita',
-                'opsi_b' => 'Menentukan tokoh yang bernegosiasi',
-                'opsi_c' => 'Menggunakan kata-kata arkais seperti hatta dan maka',
-                'opsi_d' => 'Menentukan latar tempat dan waktu negosiasi',
-                'opsi_e' => 'Menyusun alasan rasional dalam proses tawar-menawar',
-                'jawaban_benar' => 'A,B,D,E'
+                'soal' => "Buatlah jingle sederhana bertema langkah-langkah teks negosiasi dengan menggunakan nada lagu yang sudah dikenal. Gantilah lirik lagu tersebut dengan materi tentang langkah-langkah teks negosiasi sehingga menjadi lagu yang kreatif, singkat, dan mudah diingat.",
+                'opsi_a' => '',
+                'opsi_b' => '',
+                'opsi_c' => '',
+                'opsi_d' => '',
+                'opsi_e' => '',
+                'jawaban_benar' => 'URAIAN'
             ],
+
             // SOAL POS 3
             [
                 'pos_id' => 3,
                 'soal' => 'Buatlah dialog negosiasi minimal 4 baris menggunakan kata kunci yang telah diberikan!',
-                'opsi_a' => 'penjual', 'opsi_b' => 'pembeli', 'opsi_c' => 'harga', 'opsi_d' => 'menawar', 'opsi_e' => 'sepakat',
+                'opsi_a' => 'penjual',
+                'opsi_b' => 'pembeli',
+                'opsi_c' => 'harga',
+                'opsi_d' => 'menawar',
+                'opsi_e' => 'sepakat',
                 'jawaban_benar' => 'URAIAN'
             ],
+
             // SOAL POS 4
             [
                 'pos_id' => 4,
                 'soal' => 'Buatlah mind map dari teks negosiasi tersebut dengan menunjukkan struktur teks negosiasi dan kaidah kebahasaannya!',
-                'opsi_a' => $dialogLengkap, 'opsi_b' => '', 'opsi_c' => '', 'opsi_d' => '', 'opsi_e' => '',
+                'opsi_a' => $dialogLengkap,
+                'opsi_b' => '',
+                'opsi_c' => '',
+                'opsi_d' => '',
+                'opsi_e' => '',
                 'jawaban_benar' => 'URAIAN'
             ],
+
             // SOAL POS 5
             [
                 'pos_id' => 5,
                 'soal' => 'Perankan teks negosiasi berikut dengan pembagian peran: (Penjual dan Pembeli)!',
-                'opsi_a' => $dialogLengkap, 'opsi_b' => '', 'opsi_c' => '', 'opsi_d' => '', 'opsi_e' => '',
+                'opsi_a' => $dialogLengkap,
+                'opsi_b' => '',
+                'opsi_c' => '',
+                'opsi_d' => '',
+                'opsi_e' => '',
                 'jawaban_benar' => 'URAIAN'
             ],
+
         ]);
     }
 }
