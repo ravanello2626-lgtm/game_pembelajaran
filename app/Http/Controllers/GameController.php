@@ -12,6 +12,7 @@ class GameController extends Controller
     public function home()
     {
         session()->forget('selesai_pos');
+
         return view('game.home');
     }
 
@@ -27,25 +28,29 @@ class GameController extends Controller
         ]);
 
         $file = $request->file('file_tugas');
-        $namaFile = time().'_'.$file->getClientOriginalName();
+        $namaFile = time() . '_' . $file->getClientOriginalName();
 
         $file->storeAs('public/uploads', $namaFile);
 
-        return back()->with('success','File berhasil dikumpulkan!');
+        return back()->with('success', 'File berhasil dikumpulkan!');
     }
 
     public function materi()
     {
         $materis = Materi::all();
+
         return view('game.materi', compact('materis'));
     }
 
     public function map($id)
     {
         $materi = Materi::findOrFail($id);
-        $pos = Pos::where('materi_id', $id)->orderBy('id')->get();
 
-        // Pastikan session selesai_pos adalah array jika belum ada
+        $pos = Pos::where('materi_id', $id)
+                    ->orderBy('id')
+                    ->get();
+
+        // Pastikan session selesai_pos berupa array
         if (!session()->has('selesai_pos')) {
             session(['selesai_pos' => []]);
         }
@@ -57,7 +62,7 @@ class GameController extends Controller
     {
         $pos = Pos::findOrFail($id);
 
-        // Cari question berdasarkan pos_id
+        // Ambil soal berdasarkan pos_id
         $questions = Question::where('pos_id', $id)->get();
 
         return view('game.pos', compact('pos', 'questions'));
@@ -67,27 +72,35 @@ class GameController extends Controller
     {
         $posSekarang = Pos::findOrFail($id);
 
-        // Simpan progres POS selesai
+        // Ambil session progres
         $selesai = session('selesai_pos', []);
 
+        // Tambahkan POS ke daftar selesai
         if (!in_array($id, $selesai)) {
             $selesai[] = $id;
-            session(['selesai_pos' => $selesai]);
+
+            session([
+                'selesai_pos' => $selesai
+            ]);
         }
 
-        // Jika semua 5 POS selesai
+        // Jika semua POS selesai
         if (count($selesai) >= 5) {
+
+            // Tidak ada score sama sekali
             return redirect('/finish/' . $posSekarang->materi_id);
         }
 
+        // Kembali ke map
         return redirect('/map/' . $posSekarang->materi_id);
     }
 
     public function finish($id)
     {
-        // Ambil data materi berdasarkan ID
+        // Ambil data materi
         $materi = Materi::findOrFail($id);
 
+        // Tidak mengirim score
         return view('game.finish', compact('materi'));
     }
 }
