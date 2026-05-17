@@ -10,9 +10,8 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
-    server: {
-        watch: {
-            ignored: ['**/storage/framework/views/**'],
-        },
+    // Tambahkan ini untuk memastikan build path benar di server
+    build: {
+        chunkSizeWarningLimit: 1600,
     },
 });
