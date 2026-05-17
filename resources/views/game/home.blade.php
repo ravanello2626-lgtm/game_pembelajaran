@@ -12,6 +12,10 @@
     <h1>GAME MEDIA PEMBELAJARAN</h1>
     <h2>BAHASA INDONESIA KELAS X</h2>
     <p>Petualangan Menyelesaikan Misi Pembelajaran</p>
+    <p>Kelompok:</p>
+    <p>Mohamad Najakhul</p>
+    <p>Putri Ulin</p>
+    <p>Rosy Annisa</p>
 </div>
 
 <div class="menu-btn">
