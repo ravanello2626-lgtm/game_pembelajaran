@@ -9,7 +9,7 @@ html, body {
 }
 
 .pos-bg {
-    background-image: url('../images/bg-home.webp'); 
+    background-image: url('https://ik.imagekit.io/ers8xarfu/bg-home.webp'); 
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -54,7 +54,7 @@ form {
 }
 
 .game-bg{
-    background-image:url('../images/bg-home.webp');
+    background-image:url('https://ik.imagekit.io/ers8xarfu/bg-home.webp');
 }
 
 
