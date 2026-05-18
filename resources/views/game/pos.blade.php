@@ -92,17 +92,29 @@
                     @endif
 
                     {{-- INSTRUKSI URAIAN --}}
-                    <div class="question-box"
-                         style="background:#f1c40f;
-                                color:black;
-                                margin-top: 10px;
-                                width: 40%;
-                                padding: 15px;
-                                font-size: 16px;">
+<div class="question-box"
+     style="background:#f1c40f;
+            color:black;
+            margin-top: 10px;
+            width: 40%;
+            padding: 15px;
+            font-size: 16px;">
 
-                        Tuliskan jawaban Anda di dalam kertas!
+    @if($pos->id == 1 || $pos->id == 4)
 
-                    </div>
+        Hasil pekerjaan dalam bentuk gambar.
+
+    @elseif($pos->id == 5)
+
+        Hasil pekerjaan dalam bentuk video.
+
+    @else
+
+        Tuliskan jawaban Anda di dalam kertas!
+
+    @endif
+
+</div>
 
                 </div>
 
